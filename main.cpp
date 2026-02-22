@@ -10,6 +10,7 @@ favorite game, and an array of games they have played in the last month. */
 struct ClubMember {
     string name, number, favGame;
     double favRating;
+    int numRecentGames;
     string * recentGames;
 };
 
@@ -19,28 +20,33 @@ int main() {
     // DECLARATIONS
     int size;
     // Banner
-    cout << "**** VIDEO GAME CLUB MEMBER LOG****" << endl << endl;
+    cout << "**** VIDEO GAME CLUB MEMBER LOG ****" << endl << endl;
 
     // Get number of members
-    cout << "Enter number of club members: ";
+    cout << "Enter the number of club members: ";
     cin >> size;
+    cout << endl;
 
     // Declare member list array
     ClubMember memberList[size];
 
+    getMemberData (memberList[0]);
 
     return 0;
 }
 
 void getMemberData (ClubMember &mem){
     cout << "Please enter the following for member: " << endl;
-    cout << "\tName: ";
+    cout << "\tName (F & L): ";
+    cin.ignore();
     getline(cin, mem.name);
     cout << "\tPhone Number: ";
     getline(cin, mem.number);
     cout << "\tFavorite Game Overall: ";
     getline(cin, mem.favGame);
-    cout << "\tRating for Favorite Game: ";
+    cout << "\tRating for Favorite Game (_/10): ";
     cin >> mem.favRating;
+    cout << "\tNumber of games played in the past month: ";
+    cin >> mem.numRecentGames;
     cin.ignore();
 }
