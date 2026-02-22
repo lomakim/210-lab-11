@@ -28,8 +28,6 @@ void printMemberData (ClubMember *, int);   // Print member info
 int main() {
     // DECLARATIONS
     int clubSize;
-    ClubMember newMem;
-    ClubMember * memPtr = &newMem;
 
     // Banner
     cout << "**** VIDEO GAME CLUB MEMBER LOG ****" << endl << endl;
@@ -101,6 +99,6 @@ void printMemberData (ClubMember *m, int n) {
         cout << "\t\tGame #" << i + 1 << ": ";
         cout << m->recentGames[i] << endl;
     }
-    
+
     cout << endl;
 }
