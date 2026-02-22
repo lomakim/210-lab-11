@@ -15,7 +15,7 @@ struct ClubMember {
 };
 
 void getMemberData (ClubMember *);
-void printMemberData (ClubMember *);
+void printMemberData (ClubMember *, int);
 
 int main() {
     // DECLARATIONS
@@ -32,7 +32,7 @@ int main() {
     cout << endl;
 
     getMemberData(memPtr);
-    printMemberData(memPtr);
+    printMemberData(memPtr, 1);
 
     return 0;
 }
@@ -50,20 +50,23 @@ void getMemberData (ClubMember *m) {
     cin >> m->favRating;
     cout << "\tNumber of games played in the past month: ";
     cin >> m->numRecGames;
-    m->recentGames = nullptr;
+    m->recentGames = new string[m->numRecGames];
     cin.ignore();
     for (int i = 0; i < m->numRecGames; i++) {
-        cout << "\tGame #" << i + 1 << ": ";
-        cin >> m->recentGames[i];
-        cin.ignore();
+        cout << "\t\tGame #" << i + 1 << ": ";
+        getline(cin, m->recentGames[i]);
     }
 }
 
-void printMemberData (ClubMember *m) {
-    //cout << "Data for Member #" << <<": " << endl;
+void printMemberData (ClubMember *m, int n) {
+    cout << "Data for Member #" << n <<": " << endl;
     cout << "\tName: " << m->name << endl;
     cout << "\tPhone Number: " << m->number << endl;
     cout << "\tFavorite Game Overall: " << m->favGame << endl;
     cout << "\tFavorite Game Rating: " << m->favRating << "/10" << endl;
     cout << "\tNumber of Games Played Last Month: " << m->numRecGames << endl;
+    for (int i = 0; i < m->numRecGames; i++) {
+        cout << "\t\tGame #" << i + 1 << ": ";
+        cout << m->recentGames[i] << endl;
+    }
 }
