@@ -14,12 +14,14 @@ struct ClubMember {
     string * recentGames;
 };
 
-void getMemberData (ClubMember &);
-void printMemberData (ClubMember, int);
+void getMemberData (ClubMember *);
+void printMemberData (ClubMember *);
 
 int main() {
     // DECLARATIONS
     int clubSize;
+    ClubMember newMem;
+    ClubMember * memPtr = &newMem;
 
     // Banner
     cout << "**** VIDEO GAME CLUB MEMBER LOG ****" << endl << endl;
@@ -29,36 +31,39 @@ int main() {
     cin >> clubSize;
     cout << endl;
 
-    // Declare member list array
-    ClubMember memberList[clubSize];
-
-    getMemberData(memberList[0]);
-    printMemberData(memberList[0], 1);
+    getMemberData(memPtr);
+    printMemberData(memPtr);
 
     return 0;
 }
 
-void getMemberData (ClubMember &mem) {
+void getMemberData (ClubMember *m) {
     cout << "Please enter the following info for member: " << endl;
     cout << "\tName (F & L): ";
     cin.ignore();
-    getline(cin, mem.name);
+    getline(cin, m->name);
     cout << "\tPhone Number: ";
-    getline(cin, mem.number);
+    getline(cin, m->number);
     cout << "\tFavorite Game Overall: ";
-    getline(cin, mem.favGame);
+    getline(cin, m->favGame);
     cout << "\tRating for Favorite Game (_/10): ";
-    cin >> mem.favRating;
+    cin >> m->favRating;
     cout << "\tNumber of games played in the past month: ";
-    cin >> mem.numRecGames;
+    cin >> m->numRecGames;
+    m->recentGames = nullptr;
     cin.ignore();
+    for (int i = 0; i < m->numRecGames; i++) {
+        cout << "\tGame #" << i + 1 << ": ";
+        cin >> m->recentGames[i];
+        cin.ignore();
+    }
 }
 
-void printMemberData (ClubMember m, int n) {
-    cout << "Data for Member #" << n <<": " << endl;
-    cout << "\tName: " << m.name << endl;
-    cout << "\tPhone Number: " << m.number << endl;
-    cout << "\tFavorite Game Overall: " << m.favGame << endl;
-    cout << "\tFavorite Game Rating: " << m.favRating << "/10" << endl;
-    cout << "\tNumber of Games Played Last Month: " << m.numRecGames << endl;
+void printMemberData (ClubMember *m) {
+    //cout << "Data for Member #" << <<": " << endl;
+    cout << "\tName: " << m->name << endl;
+    cout << "\tPhone Number: " << m->number << endl;
+    cout << "\tFavorite Game Overall: " << m->favGame << endl;
+    cout << "\tFavorite Game Rating: " << m->favRating << "/10" << endl;
+    cout << "\tNumber of Games Played Last Month: " << m->numRecGames << endl;
 }
