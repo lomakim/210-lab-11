@@ -12,9 +12,17 @@ struct ClubMember {
     double favRating;
     int numRecGames;
     string * recentGames;
+
+    // Destructor
+    ~ClubMember() {
+        if (recentGames)
+            delete [] recentGames;
+        recentGames = nullptr;
+    }
 };
 
-void getMemberData (ClubMember *);
+// FUNCTION PROTOTYPES
+void getMemberData (ClubMember *, int);
 void printMemberData (ClubMember *, int);
 
 int main() {
@@ -29,18 +37,29 @@ int main() {
     // Get number of members
     cout << "Enter the number of club members: ";
     cin >> clubSize;
-    cout << endl;
+    cout << endl << endl;
 
-    getMemberData(memPtr);
-    printMemberData(memPtr, 1);
+    // Declaration of memberList array
+    ClubMember *memberList = new ClubMember[clubSize];
+
+    // Collect member information
+    for (int i = 0; i < clubSize; i++) {
+        getMemberData(&memberList[i], i + 1);
+    }
+
+    // Print member list and info
+    for (int i = 0; i < clubSize; i++) {
+        printMemberData(&memberList[i], i + 1);  
+    }
 
     return 0;
 }
 
-void getMemberData (ClubMember *m) {
-    cout << "Please enter the following info for member: " << endl;
-    cout << "\tName (F & L): ";
+//FUNCTION DEFINITIONS
+void getMemberData (ClubMember *m, int n) {
+    cout << "PLEASE ENTER THE FOLLOWING INFO FOR MEMBER #" << n << ":" << endl;
     cin.ignore();
+    cout << "\tName (F & L): ";
     getline(cin, m->name);
     cout << "\tPhone Number: ";
     getline(cin, m->number);
@@ -56,10 +75,11 @@ void getMemberData (ClubMember *m) {
         cout << "\t\tGame #" << i + 1 << ": ";
         getline(cin, m->recentGames[i]);
     }
+    cout << endl;
 }
 
 void printMemberData (ClubMember *m, int n) {
-    cout << "Data for Member #" << n <<": " << endl;
+    cout << "DATA FOR MEMBER #" << n <<": " << endl;
     cout << "\tName: " << m->name << endl;
     cout << "\tPhone Number: " << m->number << endl;
     cout << "\tFavorite Game Overall: " << m->favGame << endl;
@@ -69,4 +89,5 @@ void printMemberData (ClubMember *m, int n) {
         cout << "\t\tGame #" << i + 1 << ": ";
         cout << m->recentGames[i] << endl;
     }
+    cout << endl;
 }
